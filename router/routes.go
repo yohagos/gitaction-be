@@ -11,15 +11,15 @@ import (
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/get", getEmpInfo).Methods(http.MethodGet, http.MethodPost)
-	router.HandleFunc("/post", postEmpInfo).Methods(http.MethodGet, http.MethodPost)
-	router.Use(mux.CORSMethodMiddleware(router))
+	router.HandleFunc("/post", postEmpInfo).Methods(http.MethodGet, http.MethodPost, http.MethodOptions)
+	//router.Use(mux.CORSMethodMiddleware(router))
 	return router
 }
 
 func enbaleCORS(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Headers", "*")
-	(*w).Header().Set("Access-Control-Allow-Methods", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET")
 }
 
 func getEmpInfo(w http.ResponseWriter, r *http.Request) {
